@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressText = document.getElementById('progressText');
     const statusContainer = document.getElementById('statusContainer');
 
-    // Cloudinary Configuration const
-CLOUD_NAME = 'ddbcasizc';
+    // Cloudinary Configuration
+const CLOUD_NAME = 'ddbcasizc';
 const UPLOAD_PRESET = 'my_form_uploads';
 const ASSET_FOLDER = 'form_attachments';
 
