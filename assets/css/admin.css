@@ -1,25 +1,48 @@
+/* Add these new styles to your existing admin.css */
+
 .login-error {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #f44336;
-    background-color: #ffebee;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 15px;
-    animation: fadeIn 0.3s ease;
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    animation: fadeIn 0.3s;
 }
 
-.login-error i {
-    font-size: 18px;
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-.dragover {
-    border-color: #4361ee !important;
-    background-color: rgba(67, 97, 238, 0.05) !important;
+.empty {
+    text-align: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.5);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.error {
+    text-align: center;
+    padding: 1rem;
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    margin: 1rem;
+}
+
+.error button {
+    margin-top: 0.5rem;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.file-item {
+    transition: all 0.3s ease;
+}
+
+.file-item:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
