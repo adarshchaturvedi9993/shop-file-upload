@@ -1,20 +1,17 @@
 // Cloudinary Configuration
-const CLOUD_NAME = 'ddbcasizc';
-const UPLOAD_PRESET = 'my_form_uploads';
+const CLOUD_NAME = 'your_cloud_name';
+const UPLOAD_PRESET = 'your_upload_preset';
 const ASSET_FOLDER = 'form_attachments';
 
 // Admin Configuration
-const ADMIN_PASSWORD = "shop123"; // Change this in production
+const ADMIN_PASSWORD = "shop123"; // Change in production
 const ADMIN_SESSION_KEY = "shop_admin_auth";
 
-// Initialize when DOM is loaded
+// Initialize application
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize upload page if elements exist
     if (document.getElementById('fileInput')) {
         initUploadPage();
     }
-    
-    // Initialize admin page if elements exist
     if (document.getElementById('adminPassword')) {
         initAdminPage();
     }
@@ -23,15 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
 // ======================
 // UPLOAD PAGE FUNCTIONALITY
 // ======================
-
 function initUploadPage() {
     const fileInput = document.getElementById('fileInput');
     const uploadBtn = document.getElementById('uploadBtn');
     const dropZone = document.getElementById('dropZone');
     const filePreview = document.getElementById('filePreview');
     const fileError = document.getElementById('fileError');
-    
-    // Initially disable upload button
+
+    // Set initial state
     uploadBtn.disabled = true;
 
     // File selection handler
@@ -39,7 +35,7 @@ function initUploadPage() {
         handleFileSelection(this.files);
     });
 
-    // Drag and drop functionality
+    // Drag and drop setup
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, preventDefaults, false);
     });
@@ -83,7 +79,7 @@ function initUploadPage() {
             return;
         }
         
-        // Check file types and sizes
+        // Validate files
         const validFiles = Array.from(files).filter(file => {
             const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
             const maxSize = 10 * 1024 * 1024; // 10MB
@@ -130,6 +126,8 @@ function initUploadPage() {
         
         if (!files || files.length === 0) {
             showStatus('Please select files first', 'error');
+            uploadBtn.classList.add('btn-error');
+            setTimeout(() => uploadBtn.classList.remove('btn-error'), 1000);
             return;
         }
         
@@ -156,7 +154,7 @@ function initUploadPage() {
                         await new Promise(resolve => setTimeout(resolve, 100));
                     }
                     
-                    // Actual Cloudinary upload would go here
+                    // Actual Cloudinary upload would go here:
                     // const result = await uploadToCloudinary(file);
                     
                     showStatus(`Uploaded: ${file.name}`, 'success');
@@ -172,6 +170,8 @@ function initUploadPage() {
                 uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
                 uploadBtn.disabled = false;
                 fileInput.disabled = false;
+                fileInput.value = '';
+                filePreview.innerHTML = '';
             }, 2000);
         }
     }
@@ -180,7 +180,6 @@ function initUploadPage() {
 // ======================
 // ADMIN PANEL FUNCTIONALITY
 // ======================
-
 function initAdminPage() {
     const loginContainer = document.getElementById('loginContainer');
     const dashboard = document.getElementById('dashboard');
@@ -225,11 +224,12 @@ function initAdminPage() {
         localStorage.removeItem(ADMIN_SESSION_KEY);
         loginContainer.style.display = 'flex';
         dashboard.style.display = 'none';
-        fileList.innerHTML = '';
     });
     
     // Refresh handler
-    refreshBtn.addEventListener('click', fetchUploads);
+    refreshBtn.addEventListener('click', function() {
+        fetchUploads();
+    });
     
     // Search handler
     searchInput.addEventListener('input', function() {
@@ -252,20 +252,17 @@ function initAdminPage() {
 
 async function fetchUploads() {
     const fileList = document.getElementById('fileList');
+    const totalFilesEl = document.getElementById('totalFiles');
+    const totalSizeEl = document.getElementById('totalSize');
     
     try {
         fileList.innerHTML = '<div class="loading">Loading files...</div>';
         
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 800));
         
-        // In a real implementation, you would call Cloudinary API here:
-        // const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image?type=upload&prefix=${ASSET_FOLDER}&max_results=100`);
-        // const data = await response.json();
-        // const files = data.resources;
-        
-        // Mock data for demonstration
-        const files = [
+        // Mock data - replace with actual Cloudinary API call
+        const mockFiles = [
             {
                 public_id: 'form_attachments/document1',
                 format: 'pdf',
@@ -282,13 +279,21 @@ async function fetchUploads() {
             }
         ];
         
-        if (files.length === 0) {
+        if (mockFiles.length === 0) {
             fileList.innerHTML = '<div class="empty">No files found</div>';
+            totalFilesEl.textContent = '0';
+            totalSizeEl.textContent = '0 MB';
             return;
         }
         
+        // Update stats
+        const totalSize = mockFiles.reduce((sum, file) => sum + file.bytes, 0);
+        totalFilesEl.textContent = mockFiles.length;
+        totalSizeEl.textContent = formatFileSize(totalSize);
+        
+        // Render files
         fileList.innerHTML = '';
-        files.forEach(file => {
+        mockFiles.forEach(file => {
             const item = document.createElement('div');
             item.className = 'file-item';
             item.innerHTML = `
@@ -314,7 +319,7 @@ async function fetchUploads() {
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const fileId = this.getAttribute('data-id');
-                if (confirm(`Delete ${fileId}?`)) {
+                if (confirm(`Delete ${fileId}? This cannot be undone.`)) {
                     deleteFile(fileId);
                 }
             });
@@ -325,7 +330,7 @@ async function fetchUploads() {
             <div class="error">
                 <i class="fas fa-exclamation-triangle"></i>
                 <p>Failed to load files</p>
-                <button onclick="fetchUploads()">Retry</button>
+                <button onclick="fetchUploads()" class="retry-btn">Retry</button>
             </div>
         `;
         console.error('Error fetching files:', error);
@@ -385,3 +390,13 @@ function showStatus(message, type) {
 
 // Make functions available globally
 window.fetchUploads = fetchUploads;
+window.deleteFile = async function(publicId) {
+    try {
+        // Simulate delete - replace with actual Cloudinary API call
+        await new Promise(resolve => setTimeout(resolve, 500));
+        showStatus(`Deleted: ${publicId}`, 'success');
+        fetchUploads();
+    } catch (error) {
+        showStatus(`Failed to delete: ${publicId}`, 'error');
+    }
+};
