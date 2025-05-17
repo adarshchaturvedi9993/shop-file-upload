@@ -11,16 +11,20 @@
     <div class="upload-container">
         <div class="upload-card">
             <div class="header">
-                <i class="fas fa-cloud-upload-alt"></i>
+                <div class="logo">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
                 <h1>Upload Your Files</h1>
-                <p>Scan this QR code to share files with our shop</p>
+                <p class="subtext">Scan QR code to share documents with us</p>
             </div>
             
             <div class="upload-area" id="dropZone">
-                <i class="fas fa-file-alt"></i>
+                <i class="fas fa-file-upload"></i>
                 <p>Drag & drop files here or</p>
-                <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx">
-                <label for="fileInput" class="browse-btn">Browse Files</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx">
+                    <label for="fileInput" class="browse-btn">Select Files</label>
+                </div>
                 <div id="fileError" class="error-message"></div>
             </div>
             
@@ -36,6 +40,10 @@
             </div>
             
             <div class="status-container" id="statusContainer"></div>
+            
+            <div class="security-badge">
+                <i class="fas fa-lock"></i> Secure Encrypted Transfers
+            </div>
         </div>
     </div>
 
