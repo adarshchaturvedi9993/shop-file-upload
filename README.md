@@ -4,10 +4,11 @@ A complete system for customers to upload files via QR code with an admin dashbo
 
 ## Features
 - Drag & drop file uploads
+- File preview before uploading
 - Progress tracking
-- Admin dashboard with file management
+- Secure admin dashboard
 - Responsive design
-- Password protection for admin area
+- Cloudinary integration
 
 ## Setup
 
@@ -33,8 +34,8 @@ A complete system for customers to upload files via QR code with an admin dashbo
 - Default password: `shop123` (change this in `app.js`)
 
 ## Security Note
-This implementation uses client-side Cloudinary API calls for simplicity in this experimental project. For production use:
-1. Move all Cloudinary API calls to a server-side implementation
-2. Implement proper user authentication
-3. Set up rate limiting
-4. Enable Cloudinary's security features
+For production use:
+1. Change the default admin password
+2. Implement server-side authentication
+3. Set up Cloudinary security settings
+4. Monitor your Cloudinary usage
