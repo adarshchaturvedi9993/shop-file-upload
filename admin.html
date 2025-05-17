@@ -12,18 +12,24 @@
     <div class="admin-container">
         <div class="login-container" id="loginContainer">
             <div class="login-card">
-                <i class="fas fa-lock"></i>
+                <div class="logo">
+                    <i class="fas fa-lock"></i>
+                </div>
                 <h2>Admin Login</h2>
-                <input type="password" id="adminPassword" placeholder="Enter password">
-                <button id="loginBtn">Login</button>
-                <div id="loginError" class="login-error"></div>
+                <div class="input-group">
+                    <input type="password" id="adminPassword" placeholder="Enter password">
+                    <button id="loginBtn">Login</button>
+                </div>
+                <div id="loginError" class="error-message"></div>
             </div>
         </div>
         
         <div class="dashboard" id="dashboard">
             <header>
                 <h1><i class="fas fa-tachometer-alt"></i> Uploads Dashboard</h1>
-                <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </header>
             
             <div class="dashboard-controls">
@@ -31,17 +37,38 @@
                     <i class="fas fa-search"></i>
                     <input type="text" id="searchInput" placeholder="Search files...">
                 </div>
-                <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button id="refreshBtn" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-file"></i>
+                    <span id="totalFiles">0</span>
+                    <p>Total Files</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-database"></i>
+                    <span id="totalSize">0 MB</span>
+                    <p>Storage Used</p>
+                </div>
             </div>
             
             <div class="file-list-container">
                 <div class="file-list-header">
                     <span>File Name</span>
-                    <span>Date</span>
+                    <span>Upload Date</span>
                     <span>Size</span>
                     <span>Actions</span>
                 </div>
                 <div class="file-list" id="fileList"></div>
+            </div>
+            
+            <div class="pagination">
+                <button id="prevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span id="pageInfo">Page 1 of 1</span>
+                <button id="nextBtn" disabled><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
