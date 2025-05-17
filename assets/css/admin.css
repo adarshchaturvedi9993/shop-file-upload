@@ -1,48 +1,493 @@
-/* Add these new styles to your existing admin.css */
-
-.login-error {
-    color: #ff6b6b;
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    animation: fadeIn 0.3s;
+/* Admin Container */
+.admin-container {
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.loading {
+/* Login Container */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
     text-align: center;
-    padding: 2rem;
+    color: white;
+}
+
+.login-card .logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.6);
+}
+
+.login-card .logo i {
+    font-size: 2rem;
+    color: white;
+}
+
+.login-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #fff, #c9d6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.input-group input::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
-.empty {
-    text-align: center;
+.input-group button {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.input-group button:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
+}
+
+.error-message {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    animation: fadeIn 0.3s;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+/* Dashboard */
+.dashboard {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     padding: 2rem;
-    color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    color: white;
+    display: none;
 }
 
-.error {
-    text-align: center;
-    padding: 1rem;
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.1);
-    border-radius: 8px;
-    margin: 1rem;
+.dashboard header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.error button {
-    margin-top: 0.5rem;
-    background: #ff6b6b;
+.dashboard header h1 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, #fff, #c9d6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.dashboard header h1 i {
+    margin-right: 0.8rem;
+    color: var(--primary);
+}
+
+.logout-btn {
+    background: var(--danger);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: 50px;
+    font-size: 0.9rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn:hover {
+    background: #e5177b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(247, 37, 133, 0.4);
+}
+
+.logout-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Dashboard Controls */
+.dashboard-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.9rem;
+}
+
+.search-box input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.refresh-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(110, 142, 251, 0.4);
+}
+
+.refresh-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Stats Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.stat-card span {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #fff, #c9d6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.stat-card p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* File List */
+.file-list-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.file-list {
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .file-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
+}
+
+.file-item:last-child {
+    border-bottom: none;
 }
 
 .file-item:hover {
     background: rgba(255, 255, 255, 0.05);
+}
+
+.file-name {
+    display: flex;
+    align-items: center;
+}
+
+.file-name i {
+    margin-right: 1rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.file-date, .file-size {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.file-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.download-btn, .delete-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.download-btn {
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--success);
+}
+
+.download-btn:hover {
+    background: rgba(76, 201, 240, 0.2);
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: rgba(247, 37, 133, 0.1);
+    color: var(--danger);
+}
+
+.delete-btn:hover {
+    background: rgba(247, 37, 133, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Loading States */
+.loading {
+    padding: 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+.empty {
+    padding: 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.error {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--danger);
+    background: rgba(247, 37, 133, 0.1);
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+.error i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.retry-btn {
+    margin-top: 1rem;
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: #e5177b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(247, 37, 133, 0.4);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .file-list-header, .file-item {
+        grid-template-columns: 2fr 1fr 0.5fr;
+    }
+    
+    .file-size {
+        display: none;
+    }
+    
+    .dashboard-controls {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .refresh-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-container {
+        padding: 1rem;
+    }
+    
+    .login-card, .dashboard {
+        padding: 1.5rem;
+    }
+    
+    .file-list-header, .file-item {
+        grid-template-columns: 2fr 0.5fr;
+    }
+    
+    .file-date {
+        display: none;
+    }
+    
+    .file-actions {
+        justify-content: center;
+    }
 }
